@@ -1,0 +1,51 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile and Water Tracker State",
+      "description": "Stores user settings, personal metrics, today's water intake, and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "personName": { "type": "string" },
+        "dailyGoal": { "type": "number" },
+        "bottleCapacity": { "type": "number" },
+        "todayTotalDrank": { "type": "number" },
+        "todayDate": { "type": "string" },
+        "weightKg": { "type": "number" },
+        "heightCm": { "type": "number" },
+        "activityLevel": { "type": "string" },
+        "enableSound": { "type": "boolean" },
+        "enableVibration": { "type": "boolean" },
+        "enableBrowserNotification": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "history": {
+      "title": "Daily Water Consumption Records",
+      "description": "Historical daily drinking data for weekly analytics",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "totalDrank": { "type": "number" },
+        "goal": { "type": "number" },
+        "reached": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["date", "totalDrank", "goal"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User profile, configuration, and current day hydration state"
+    },
+    "/users/{userId}/history/{dateStr}": {
+      "schema": "history",
+      "description": "Daily hydration history logs for the user"
+    }
+  }
+}
