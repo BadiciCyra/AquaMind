@@ -8,3 +8,10 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 );
+
+// PWA: Android'de "Ana ekrana ekle / Uygulamayı yükle" için service worker
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((err) => console.warn('[PWA] SW kaydı başarısız:', err));
+  });
+}
